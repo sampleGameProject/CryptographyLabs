@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICryptoMethod.cs" />
+    <Compile Include="CipherTables.cs" />
     <Compile Include="PlayfairCipher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerrnamCipher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
