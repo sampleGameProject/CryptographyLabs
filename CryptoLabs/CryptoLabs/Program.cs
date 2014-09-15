@@ -10,39 +10,58 @@ namespace CryptoLabs
     {
         static void Main(string[] args)
         {
-            
-
             //testPlayfair();
-            testCipherTables();
+            //testCipherTables();
+            testVerrnamCipher();
         }
 
         private static void testCipherTables()
         {
-            Console.WriteLine(CipherTables.Encode("СИСТЕМНЫЙ ПАРОЛЬ ИЗМЕНЕН", "СКАНЕР"));
+            string key = "СКАНЕР".ToLower();
+            string test = "СИСТЕМНЫЙ ПАРОЛЬ ИЗМЕНЕН".ToLower();
+
+            Console.WriteLine("Original: " + test);
+
+            string encoded = CipherTables.Encode(test, key);
+
+            Console.WriteLine("Encoded:  " + encoded);
+
+            string decoded = CipherTables.Decode(encoded, key);
+           
+            
+            Console.WriteLine("Decoded:  " + decoded);
+
+            Console.WriteLine();
         }
 
         private static void testPlayfair()
         {
-            string result = PlayfairCipher.Encode("ВО ВРЕМЯ ПЕРВОЙ МИРОВОЙ ВОЙНЫ ИСПОЛЬЗОВАЛИСЬ БИГРАММНЫЕ ШИФРЫ",
-                 PlayfairCipher.sAlphabet, 7, 5, PlayfairCipher.sKey);
+            string test = "ВО ВРЕМЯ ПЕРВОЙ МИРОВОЙ ВОЙНЫ  ИСПОЛЬЗОВАЛИСЬ БИГРАММНЫЕ ШИФРЫ";
+            test = test.ToLower();
+            string encoded = PlayfairCipher.Encode(test,PlayfairCipher.sAlphabet, 7, 5, PlayfairCipher.sKey);
+            string decoded = PlayfairCipher.Decode(encoded, PlayfairCipher.sAlphabet, 7, 5, PlayfairCipher.sKey);
+            Console.WriteLine("Original: " + test);
+            Console.WriteLine("Encoded:  " + encoded);
+            Console.WriteLine("Decoded:  " + decoded);
 
-            int i = 0;
-            foreach (var c in result)
-            {
-
-                Console.Write(c);
-                i++;
-                if (i % 2 == 0)
-                    Console.Write("\n");
-            }
+            Console.WriteLine();
         }
 
         private static void testVerrnamCipher()
         {
-            var origin = "EVTIQWXQVVOPMCXREPYZ";
-            var key = "ALLSWELLTHATENDSWELL";
+            var test = "ВОРУЙУБИВАЙ";
+            var key  = "asdА1235апр";
 
-            Console.WriteLine()
+            Console.WriteLine("Original: " + test);
+
+            string encoded = VerrnamCipher.Encode(test, key);
+
+            Console.WriteLine("Encoded:  " + encoded);
+
+            string decoded = VerrnamCipher.Decode(encoded, key);
+            
+            Console.WriteLine("Decoded:  " + decoded);
+            Console.WriteLine();
         }
 
     }

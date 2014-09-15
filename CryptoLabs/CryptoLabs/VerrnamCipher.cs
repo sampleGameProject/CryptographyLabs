@@ -8,19 +8,22 @@ namespace CryptoLabs
 {
     class VerrnamCipher
     {
+        private const byte CLEANER = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4;
+
+        private static string alpha = "абвгдежзийклмнопрстуфхцчшщъыьэюя".ToUpper();
+
         public static string Encode(string russianText,string key)
         {
             string text = russianText.ToUpper();
-
             char[] result = new char[russianText.Length];
 
             for (var i = 0; i < russianText.Length; i++ )
             {
-                result[i] = (char)(CharToByte(text[i]) ^ (byte)key[i]);
+                byte val = CharToByte5(text[i]);
+                result[i] = (char)(val ^ key[i]);
             }
 
-
-            return String.Empty;
+            return new String(result);
         }
 
         public static string Decode(string text, string key)
@@ -29,24 +32,22 @@ namespace CryptoLabs
 
             for (var i = 0; i < key.Length; i++)
             {
-                byte b = (byte)(text[i] ^ key[i]);
-                result[i] = (char)(ByteToChar(b));
+                byte dirtValue = (byte)(text[i] ^ key[i]);
+                byte val = (byte)(dirtValue & CLEANER);
+                result[i] = (ByteToChar(val));
             }
 
-
-            return String.Empty;
+            return new String(result);
         }
 
-        private static const byte START_CYRILLIC = 128;
-
-        private static byte CharToByte(char c)
+        private static byte CharToByte5(char c)
         {
-            return (byte)(c - START_CYRILLIC);
+            return (byte)alpha.IndexOf(c);
         }
 
         private static char ByteToChar(byte b)
         {
-            return (char)((char)b + START_CYRILLIC);
+            return alpha[b];
         }
     }
 }

@@ -23,10 +23,9 @@ namespace CryptoLabs
         }
         public static string Encode(string data, string alphabet,int columns, int rows,string key)
         {
-            string fixedData = FixInputData(data);
             var alphaArray = GetWorkAlphaArray(alphabet,columns,rows, key);
 
-            for(int i = 0; i < alphaArray.GetLength(0);i++)            
+            for (int i = 0; i < alphaArray.GetLength(0); i++)
             {
                 for (int j = 0; j < alphaArray.GetLength(1); j++)
                 {
@@ -36,70 +35,76 @@ namespace CryptoLabs
 
             }
 
-
-            var bigramms = SplitToBigramms(fixedData);
-
-            int r = 0;
-            foreach (var c in bigramms)
-            {
-                Console.Write(c);
-                r++;
-                if (r % 2 == 0)
-                    Console.Write("\n");
-            }
-
             Console.Write("\n\n");
+
+            var bigramms = SplitToBigramms(data);
+
+            //int r = 0;
+            //foreach (var c in bigramms)
+            //{
+            //    Console.Write(c);
+            //    r++;
+            //    if (r % 2 == 0)
+            //        Console.Write("\n");
+            //}
+
+            //Console.Write("\n\n");
 
             var result = CreateTextWithBigramms(alphaArray, bigramms);
 
             return result;
         }
 
-        private static string FixInputData(string data)
-        {
-            string fixedData = data;
-            int doubleLetterPosition;
+        //private static string FixInputData(string data)
+        //{
+        //    string fixedData = data;
+        //    int doubleLetterPosition;
 
-            while ((doubleLetterPosition = FindDoubleLetterPostion(fixedData)) != -1)
-            {
-                fixedData = fixedData.Insert(GetSpaceIndex(fixedData,doubleLetterPosition), " ");
-            }
+        //    while ((doubleLetterPosition = FindDoubleLetterPostion(fixedData)) != -1)
+        //    {
+        //        fixedData = fixedData.Insert(GetSpaceIndex(fixedData,doubleLetterPosition), " ");
+        //    }
             
 
-            return fixedData;
-        }
+        //    return fixedData;
+        //}
 
-        private static int GetSpaceIndex(string data,int doubleLetterPosition)
-        {
-            for(int i = doubleLetterPosition-1; i > -1; i--)
-            {
-                if (data[i] == ' ')
-                    return i;
-            }
+        //private static int GetSpaceIndex(string data,int doubleLetterPosition)
+        //{
+        //    for(int i = doubleLetterPosition-1; i > -1; i--)
+        //    {
+        //        if (data[i] == ' ')
+        //            return i;
+        //    }
             
-            return 0;
-        }
+        //    return 0;
+        //}
 
-        private static int FindDoubleLetterPostion(string data)
-        {
-            for(var i = 0; i < data.Length-1; i+=2)
-            {
-                if (data[i] == data[i + 1] && data[i] != ' ')
-                    return i;
-            }
-            return -1;
-        }
+        //private static int FindDoubleLetterPostion(string data)
+        //{
+        //    for(var i = 0; i < data.Length-1; i+=2)
+        //    {
+        //        if (data[i] == data[i + 1] && data[i] != ' ')
+        //            return i;
+        //    }
+        //    return -1;
+        //}
 
         public static string Decode(string data, string alphabet, int columns, int rows, string key)
         {
-            return String.Empty; 
+            var alphaArray = GetWorkAlphaArray(alphabet, columns, rows, key);
+            var bigramms = SplitToBigramms(data);
+
+            var result = CreateTextWithReBigramms(alphaArray, bigramms);
+
+            return result; 
         }
+
 
         public static char[,] GetWorkAlphaArray(string alphabet, int columns, int rows, string key)
         {
             string workAlpha = GetWorkAlphabet(alphabet,key);
-            Console.WriteLine("Alpha is : " + workAlpha);
-
+            
             char [,] arrayAlpha = new char[rows,columns];
 
             for (var i = 0; i < arrayAlpha.GetLength(0); i++)
@@ -237,5 +242,70 @@ namespace CryptoLabs
         }
 
 
+        private static string CreateTextWithReBigramms(char[,] alphabet, char[,] rebigramms)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < rebigramms.GetLength(0); i++)
+            {
+                char[] birgam = GetBigramm(alphabet, rebigramms[i, 0], rebigramms[i, 1]);
+                sb.Append(birgam[0]);
+                sb.Append(birgam[1]);
+            }
+
+            return sb.ToString();
+        }
+
+        private static char[] GetBigramm(char[,] alphabet, char p1, char p2)
+        {
+            var point1 = GetPointForChar(p1, alphabet);
+            var point2 = GetPointForChar(p2, alphabet);
+
+            int reX1 = 0;
+            int reY1 = 0;
+            int reX2 = 0;
+            int reY2 = 0;
+
+            if (point1.y == point2.y)//same row
+            {
+                reX1 = point1.x;
+                reY1 = point1.y;
+
+                reX2 = point2.x;
+                reY2 = point2.y;
+
+                reX1--;
+                if (reX1 == -1)
+                    reX1 = alphabet.GetUpperBound(0);
+                reX2--;
+                if (reX2 == -1)
+                    reX2 = alphabet.GetUpperBound(0);
+            }
+            else if (point1.x == point2.x)//same column
+            {
+                reX1 = point1.x;
+                reY1 = point1.y;
+
+                reX2 = point2.x;
+                reY2 = point2.y;
+
+                reY1--;
+                if (reY1 == -1)
+                    reY1 = alphabet.GetUpperBound(1);
+                reY2--;
+                if (reY2 == -1)
+                    reY2 = alphabet.GetUpperBound(1);
+            }
+            else
+            {
+                reX1 = point1.x;
+                reY1 = point2.y;
+
+                reX2 = point2.x;
+                reY2 = point1.y;
+            }
+
+            return new char[] { alphabet[reX1, reY1], alphabet[reX2, reY2] };
+        }
     }
 }

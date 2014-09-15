@@ -13,7 +13,7 @@ namespace CryptoLabs
             var table = InputToTable(data, key.Length);
             var sort = KeyToSort(key);
 
-            //DebugTable(table);
+            DebugTable(table);
 
             var sortedTable = SortTable(table, sort);
 
@@ -29,8 +29,25 @@ namespace CryptoLabs
 
         public static string Decode(string data, string key)
         {
-            return null;
+
+            var table = EncodedInputToTable(data, key.Length);
+            var sort = KeyToSort(key);
+
+            DebugTable(table);
+
+            var sortedTable = SortBackTable(table,  key);
+
+            //DebugTable(sortedTable);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < table.GetLength(0); i++)
+                for (int j = 0; j < table.GetLength(1); j++)
+                    sb.Append(sortedTable[i, j]);
+
+            return sb.ToString();
         }
+
+        
 
         private static void DebugTable(char[,] table)
         {
@@ -104,5 +121,48 @@ namespace CryptoLabs
             return sort;
 
         }
+
+        private static char[,] EncodedInputToTable(string data, int keyLenght)
+        {
+            string fixedData = data;
+            
+            int columns = keyLenght;
+            int rows = fixedData.Length / keyLenght;
+
+            char[,] table = new char[columns, rows];
+
+            for (var i = 0; i < rows ; i++)
+                for (var j = 0; j < columns; j++)                   
+                {
+                    table[j, i] = fixedData[i * columns + j];
+                }
+
+            return table;
+        }
+
+        private static char[,] SortBackTable(char[,] table, string key)
+        {
+            int columns = table.GetLength(0);
+            int rows = table.GetLength(1);
+
+            char[,] result = new char[columns, rows];
+
+            int[] sort = new int[key.Length];
+            var charArray = key.ToCharArray();
+            Array.Sort(charArray, StringComparer.Ordinal);
+
+            for (int i = 0; i < key.Length; i++)
+            {
+                int columtR = Array.IndexOf(charArray,key[i]);
+
+                for (int j = 0; j < rows; j++)
+                {
+                    result[i, j] = table[columtR, j];
+                }
+            }
+
+            return result;
+        }
+
     }
 }
