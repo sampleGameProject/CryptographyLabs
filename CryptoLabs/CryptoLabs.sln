@@ -4,6 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoLabs", "CryptoLabs\CryptoLabs.csproj", "{13458C14-A042-49F6-823F-6C753DC1A7FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC} = {91A0AF21-4737-4D77-A55C-386E81DCA7EC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoLabsPart2", "CryptoLabsPart2\CryptoLabsPart2.csproj", "{1349DCB8-6E4B-4C3A-A20E-A98312FB0F9A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC} = {91A0AF21-4737-4D77-A55C-386E81DCA7EC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoLabsPart3", "CryptoLabsPart3\CryptoLabsPart3.csproj", "{24C592B1-80D8-46BB-9E2B-0BA74C248127}"
+	ProjectSection(ProjectDependencies) = postProject
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC} = {91A0AF21-4737-4D77-A55C-386E81DCA7EC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoLib", "CryptoLib\CryptoLib.csproj", "{91A0AF21-4737-4D77-A55C-386E81DCA7EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +30,18 @@ Global
 		{13458C14-A042-49F6-823F-6C753DC1A7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13458C14-A042-49F6-823F-6C753DC1A7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13458C14-A042-49F6-823F-6C753DC1A7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1349DCB8-6E4B-4C3A-A20E-A98312FB0F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1349DCB8-6E4B-4C3A-A20E-A98312FB0F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1349DCB8-6E4B-4C3A-A20E-A98312FB0F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1349DCB8-6E4B-4C3A-A20E-A98312FB0F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24C592B1-80D8-46BB-9E2B-0BA74C248127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C592B1-80D8-46BB-9E2B-0BA74C248127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C592B1-80D8-46BB-9E2B-0BA74C248127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C592B1-80D8-46BB-9E2B-0BA74C248127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A0AF21-4737-4D77-A55C-386E81DCA7EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

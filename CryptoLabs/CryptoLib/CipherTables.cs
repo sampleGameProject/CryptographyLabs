@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CryptoLabs
 {
-    class CipherTables
+    public class CipherTables
     {
         public static string Encode(string data, string key)
         {
@@ -17,7 +17,6 @@ namespace CryptoLabs
 
             var sortedTable = SortTable(table, sort);
 
-            //DebugTable(sortedTable);
             StringBuilder sb = new StringBuilder();
             
             for (int j = 0; j < table.GetLength(1); j++)
@@ -37,7 +36,6 @@ namespace CryptoLabs
 
             var sortedTable = SortBackTable(table,  key);
 
-            //DebugTable(sortedTable);
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < table.GetLength(0); i++)

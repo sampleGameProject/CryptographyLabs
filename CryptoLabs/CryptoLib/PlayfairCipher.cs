@@ -4,26 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoLabs
+namespace CryptoLib
 {
-    class PlayfairCipher
+    public  class PlayfairCipher
     {
-        struct Point
-        {
-            public int x;
-            public int y;
-        }
+       
 
         public static string sAlphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя .,";
         public static string sKey = "префектура";
             
-        public static void Test()
-        {
-            
-        }
         public static string Encode(string data, string alphabet,int columns, int rows,string key)
         {
-            var alphaArray = GetWorkAlphaArray(alphabet,columns,rows, key);
+            var alphaArray = Utils.GetWorkAlphaArray(alphabet, columns, rows, key);
 
             for (int i = 0; i < alphaArray.GetLength(0); i++)
             {
@@ -38,61 +30,15 @@ namespace CryptoLabs
             Console.Write("\n\n");
 
             var bigramms = SplitToBigramms(data);
-
-            //int r = 0;
-            //foreach (var c in bigramms)
-            //{
-            //    Console.Write(c);
-            //    r++;
-            //    if (r % 2 == 0)
-            //        Console.Write("\n");
-            //}
-
-            //Console.Write("\n\n");
-
             var result = CreateTextWithBigramms(alphaArray, bigramms);
-
             return result;
         }
 
-        //private static string FixInputData(string data)
-        //{
-        //    string fixedData = data;
-        //    int doubleLetterPosition;
-
-        //    while ((doubleLetterPosition = FindDoubleLetterPostion(fixedData)) != -1)
-        //    {
-        //        fixedData = fixedData.Insert(GetSpaceIndex(fixedData,doubleLetterPosition), " ");
-        //    }
-            
-
-        //    return fixedData;
-        //}
-
-        //private static int GetSpaceIndex(string data,int doubleLetterPosition)
-        //{
-        //    for(int i = doubleLetterPosition-1; i > -1; i--)
-        //    {
-        //        if (data[i] == ' ')
-        //            return i;
-        //    }
-            
-        //    return 0;
-        //}
-
-        //private static int FindDoubleLetterPostion(string data)
-        //{
-        //    for(var i = 0; i < data.Length-1; i+=2)
-        //    {
-        //        if (data[i] == data[i + 1] && data[i] != ' ')
-        //            return i;
-        //    }
-        //    return -1;
-        //}
+      
 
         public static string Decode(string data, string alphabet, int columns, int rows, string key)
         {
-            var alphaArray = GetWorkAlphaArray(alphabet, columns, rows, key);
+            var alphaArray = Utils.GetWorkAlphaArray(alphabet, columns, rows, key);
             var bigramms = SplitToBigramms(data);
 
             var result = CreateTextWithReBigramms(alphaArray, bigramms);
@@ -100,36 +46,6 @@ namespace CryptoLabs
             return result; 
         }
 
-
-        public static char[,] GetWorkAlphaArray(string alphabet, int columns, int rows, string key)
-        {
-            string workAlpha = GetWorkAlphabet(alphabet,key);
-            
-            char [,] arrayAlpha = new char[rows,columns];
-
-            for (var i = 0; i < arrayAlpha.GetLength(0); i++)
-                for (var j = 0; j < arrayAlpha.GetLength(1); j++)
-                {
-                    arrayAlpha[i, j] = workAlpha[i * arrayAlpha.GetLength(1) + j];
-                }
-
-            return arrayAlpha;
-        }
-
-        public static string GetWorkAlphabet(string alpha,string key)
-        {
-            string res = String.Empty;
-
-            foreach(var ch in key)
-                if (!res.Contains(ch))
-                    res += ch;
-
-            foreach (var ch in alpha)
-                if (!res.Contains(ch))
-                    res += ch;
-            
-            return res;
-        }
 
         public static char[,] SplitToBigramms(string text)
         {
@@ -151,17 +67,9 @@ namespace CryptoLabs
                 bigramms[i, 1] = correctText[i * 2 + 1];
             }
 
-            if (CorrectBigramms(bigramms))
-            {
-                return bigramms;
-            }
-            return null;
+            return bigramms;
         }
 
-        private static bool CorrectBigramms(char[,] bigramms)
-        {
-            return true;
-        }
 
         public static string CreateTextWithBigramms(char[,] alphabet, char[,] bigramms)
         {
@@ -179,8 +87,8 @@ namespace CryptoLabs
 
         private static char[] GetReBigramm(char[,] alphabet, char p1, char p2)
         {
-            var point1 = GetPointForChar(p1, alphabet);
-            var point2 = GetPointForChar(p2, alphabet);
+            var point1 = Utils.GetPointForChar(p1, alphabet);
+            var point2 = Utils.GetPointForChar(p2, alphabet);
 
             int reX1 = 0;
             int reY1 = 0;
@@ -230,17 +138,6 @@ namespace CryptoLabs
 
         }
 
-        private static Point GetPointForChar(char p1, char[,] alphabet)
-        {
-            for(int i = 0; i < alphabet.GetLength(0); i++)
-                for(int j = 0; j < alphabet.GetLength(1); j++)
-                {
-                    if (alphabet[i, j] == p1)
-                        return new Point() { x = i, y = j };
-                }
-            return new Point();
-        }
-
 
         private static string CreateTextWithReBigramms(char[,] alphabet, char[,] rebigramms)
         {
@@ -258,8 +155,8 @@ namespace CryptoLabs
 
         private static char[] GetBigramm(char[,] alphabet, char p1, char p2)
         {
-            var point1 = GetPointForChar(p1, alphabet);
-            var point2 = GetPointForChar(p2, alphabet);
+            var point1 = Utils.GetPointForChar(p1, alphabet);
+            var point2 = Utils.GetPointForChar(p2, alphabet);
 
             int reX1 = 0;
             int reY1 = 0;

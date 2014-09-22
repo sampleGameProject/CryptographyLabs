@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CryptoLib;
 
 namespace CryptoLabs
 {
@@ -12,7 +13,21 @@ namespace CryptoLabs
         {
             //testPlayfair();
             //testCipherTables();
-            testVerrnamCipher();
+            //testVerrnamCipher();
+            testTrithemius();
+        }
+
+        private static void testTrithemius()
+        {
+            string test = "ВО ВРЕМЯ ПЕРВОЙ МИРОВОЙ ВОЙНЫ  ИСПОЛЬЗОВАЛИСЬ БИГРАММНЫЕ ШИФРЫ";
+            test = test.ToLower();
+            string encoded = Trithemius.Encode(test, PlayfairCipher.sAlphabet, 7, 5, PlayfairCipher.sKey);
+            string decoded = Trithemius.Decode(encoded, PlayfairCipher.sAlphabet, 7, 5, PlayfairCipher.sKey);
+            Console.WriteLine("Original: " + test);
+            Console.WriteLine("Encoded:  " + encoded);
+            Console.WriteLine("Decoded:  " + decoded);
+
+            Console.WriteLine();
         }
 
         private static void testCipherTables()
@@ -49,8 +64,8 @@ namespace CryptoLabs
 
         private static void testVerrnamCipher()
         {
-            var test = "ВОРУЙУБИВАЙ";
-            var key  = "asdА1235апр";
+            var test = "колдуйисчезай";
+            var key  = "asdА1235а43пр";
 
             Console.WriteLine("Original: " + test);
 
