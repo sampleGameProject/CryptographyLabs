@@ -8,7 +8,7 @@ namespace CryptoLib
 {
     public static class MDM5
     {
-        private static string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxyz0123456789АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя .";
+        private static string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxyz0123456789АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя .?";
 
         private const byte BYTE7 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6;
         private const int BYTES_PER_BLOCK = 64;
@@ -21,25 +21,43 @@ namespace CryptoLib
 
             char[] encoded = new char[fixedText.Length];
             string cipher = String.Empty;
+
+            string originalStr = String.Empty;
+            string gammaStr = String.Empty;
+            string cipherStr = String.Empty;
+
             for (int i = 0; i < blocks; i++ )
             {
                 long gamma = FibonacciLagGenerator.NextNormalized();
+                
  
                 for (int j = 0; j < CHARS_PER_BLOCK; j++)
                 {
                     char textChar = fixedText[i * CHARS_PER_BLOCK + j];
-                    byte textVal = CharToByte7(textChar);
-                    byte keyVal = GammaForIndex(gamma, j);
 
+                    byte textVal = CharToByte7(textChar);
+                    originalStr += ByteToString(textVal);
+                    byte keyVal = GammaForIndex(gamma, j);
+                    gammaStr += ByteToString(keyVal);
                     int index = textVal ^ keyVal;
+                    cipherStr += ByteToString((byte)index);
                     encoded[i * CHARS_PER_BLOCK + j] = alpha[index];
                 }
+
+                originalStr += ' ';
+                gammaStr += ' ';
+                cipherStr += ' ';
+
+
                 cipher += gamma.ToString();
 
                 if(i != blocks - 1)
                 cipher += " ";
             }
-
+            FileWriter.AppendLine("Encode:");
+            FileWriter.AppendLine(originalStr);
+            FileWriter.AppendLine(gammaStr);
+            FileWriter.AppendLine(cipherStr);
 
             return new Tuple<string, string>(new string(encoded), cipher);
         }
@@ -69,6 +87,13 @@ namespace CryptoLib
 
         public static string Decode(string text, string key)
         {
+            FileWriter.AppendLine("Decode:");
+
+
+            string originalStr = String.Empty;
+            string gammaStr = String.Empty;
+            string cipherStr = String.Empty;
+
             char[] decoded = new char[text.Length];
             int blocks = text.Length / CHARS_PER_BLOCK;
             long[] keyArray = ParseKey(key);
@@ -80,11 +105,30 @@ namespace CryptoLib
                 for (int j = 0; j < CHARS_PER_BLOCK; j++)
                 {
                     char dirtChar = text[i * CHARS_PER_BLOCK + j];
+
                     byte dirtVal = CharToByte7(dirtChar);
+                    cipherStr += ByteToString(dirtVal);
+
                     byte keyVal = GammaForIndex(gamma, j);
-                    decoded[i * CHARS_PER_BLOCK + j] = alpha[dirtVal ^ keyVal];
+                    gammaStr += ByteToString(keyVal);
+
+                    int decodedVal = dirtVal ^ keyVal;
+                    originalStr += ByteToString((byte)decodedVal);
+                    decoded[i * CHARS_PER_BLOCK + j] = alpha[decodedVal];
                 }
+
+                originalStr += ' ';
+                gammaStr += ' ';
+                cipherStr += ' ';
             }
+
+
+            FileWriter.AppendLine(cipherStr);
+            FileWriter.AppendLine(gammaStr);
+            FileWriter.AppendLine(originalStr);
+           
+
+            FileWriter.FlushToFile("demo.txt");
 
             return new string(decoded);
         }
@@ -100,6 +144,23 @@ namespace CryptoLib
             }
 
             return keyArray;
+        }
+
+        private static string ByteToString(byte b)
+        {
+            return FixByteString(Convert.ToString(b, 2));
+        }
+
+        private static string FixByteString(string s)
+        {
+            string fixedString = s;
+
+            while (fixedString.Length != 7)
+            {
+                fixedString = "0" + fixedString;
+            }
+
+            return fixedString;
         }
     }
 }

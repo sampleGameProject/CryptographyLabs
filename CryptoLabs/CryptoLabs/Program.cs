@@ -13,8 +13,8 @@ namespace CryptoLabs
         {
             //testPlayfair();
             //testCipherTables();
-            //testVerrnamCipher();
-            testTrithemius();
+            testVerrnamCipher();
+            //testTrithemius();
         }
 
         private static void testTrithemius()

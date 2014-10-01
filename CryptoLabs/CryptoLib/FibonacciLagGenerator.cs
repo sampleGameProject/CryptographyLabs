@@ -20,7 +20,7 @@ namespace CryptoLib
         private const int A = 97;
         private const int B = 33;
 
-        private const float DIVIDER = 1000000000000;
+        private const float DIVIDER = 100000000000;
 
         private static Queue<float> values = new Queue<float>();
 
@@ -43,13 +43,15 @@ namespace CryptoLib
 
             float y = valA >= valB ? valA - valB : valA - valB + 1.0f;
             values.EnqueueAndDequeue(y);
-
+            FileWriter.AppendLine("FibonacciLagGenerator: next value " + y.ToString());
             return y;
         }
 
         public static long NextNormalized()
         {
-            return (long)(Next() * DIVIDER);
+            var normilized = (long)(Next() * DIVIDER * 1000000);
+            FileWriter.AppendLine("FibonacciLagGenerator: next normilized value " + normilized.ToString());
+            return normilized;
         }
     }
 }

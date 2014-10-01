@@ -17,11 +17,13 @@ namespace CryptoLib
         static LinearCongruentialGenerator()
         {
             yPrev = (ulong)Math.Sqrt(DateTime.Now.Ticks);
+            FileWriter.AppendLine("LinearCongruentialGenerator: init  with value " + yPrev.ToString());
         }
 
         public static ulong Next()
         {
             yPrev = (A * yPrev + B) % M;
+            FileWriter.AppendLine("LinearCongruentialGenerator: next value: " + yPrev.ToString());
             return yPrev;
         }
 

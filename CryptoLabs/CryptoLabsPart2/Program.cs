@@ -23,6 +23,8 @@ namespace CryptoLabsPart2
            Console.WriteLine("");
            string decoded = MDM5.Decode(result.Item1, result.Item2);
            Console.WriteLine("Decoded: " + decoded);
+
+           
         }
     }
 }

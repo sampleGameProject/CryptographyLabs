@@ -1,8 +1,8 @@
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\CryptoLabsPart2.csprojResolveAssemblyReference.cache
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.exe.config
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.exe
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.pdb
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\CryptoLib.dll
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\CryptoLib.pdb
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\MDM5.exe
-C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\MDM5.pdb
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.exe.config
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.exe
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\MDM5.pdb
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\CryptoLib.dll
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\bin\Release\CryptoLib.pdb
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\CryptoLabsPart2.csprojResolveAssemblyReference.cache
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\MDM5.exe
+J:\CryptographyLabs\CryptoLabs\CryptoLabsPart2\obj\Release\MDM5.pdb
