@@ -9,3 +9,11 @@ J:\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.pdb
 F:\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLabs.exe.config
 F:\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.exe
 F:\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.pdb
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLabs.exe.config
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLabs.exe
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLabs.pdb
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLib.dll
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\bin\Release\CryptoLib.pdb
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.exe
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLabs\obj\Release\CryptoLabs.pdb

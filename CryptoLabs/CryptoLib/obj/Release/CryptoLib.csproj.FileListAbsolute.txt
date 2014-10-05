@@ -2,3 +2,7 @@ J:\CryptographyLabs\CryptoLabs\CryptoLib\bin\Release\CryptoLib.dll
 J:\CryptographyLabs\CryptoLabs\CryptoLib\bin\Release\CryptoLib.pdb
 J:\CryptographyLabs\CryptoLabs\CryptoLib\obj\Release\CryptoLib.dll
 J:\CryptographyLabs\CryptoLabs\CryptoLib\obj\Release\CryptoLib.pdb
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLib\bin\Release\CryptoLib.dll
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLib\bin\Release\CryptoLib.pdb
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLib\obj\Release\CryptoLib.dll
+C:\Users\admin\Documents\GitHub\CryptographyLabs\CryptoLabs\CryptoLib\obj\Release\CryptoLib.pdb
