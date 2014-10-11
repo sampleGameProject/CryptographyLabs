@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Cast256CBC.Cast256
+namespace Cast256CBC.Cipher
 {
     static class CastExtenstions
     {
@@ -31,22 +31,22 @@ namespace Cast256CBC.Cast256
 
         public static byte ByteIa(this uint value)
         {
-            return value.ByteAt(Cast256.A);
+            return value.ByteAt(Cast.A);
         }
 
         public static byte ByteIb(this uint value)
         {
-            return value.ByteAt(Cast256.B);
+            return value.ByteAt(Cast.B);
         }
 
         public static byte ByteIc(this uint value)
         {
-            return value.ByteAt(Cast256.C);
+            return value.ByteAt(Cast.C);
         }
 
         public static byte ByteId(this uint value)
         {
-            return value.ByteAt(Cast256.D);
+            return value.ByteAt(Cast.D);
         }
 
     }
@@ -241,7 +241,7 @@ namespace Cast256CBC.Cast256
         };
     }
 
-    class Cast256
+    public class Cast
     {
         public const int A = 3;
         public const int B = 2;
@@ -262,7 +262,7 @@ namespace Cast256CBC.Cast256
 
         uint[] lKey = new uint[96];
 
-        void SetKey(uint[] inKey, int keyLenght)
+        public void SetKey(uint[] inKey, int keyLenght)
         {
             uint  i, j, cm, cr;
             uint[] lk = new uint[8];
@@ -308,35 +308,52 @@ namespace Cast256CBC.Cast256
             }
         }
 
-        void Encrypt(uint[] inBlock, uint[] outBlock)
+        public void Encrypt(uint[] inBlock, uint[] outBlock)
         {
             uint[] block = new uint[4];
 
             for (uint i = 0; i < 4; i++)
                 block[i] = inBlock[i].BitSwap();
 
-            for (uint i = 0; i <= 40; i += 8)   // 6 прямых раундов
-                ForwardQuadRound(block, i); 
+            ForwardQuadRound(block, 0);
+            ForwardQuadRound(block, 8);
+            ForwardQuadRound(block, 16);
+            ForwardQuadRound(block, 24);
+            ForwardQuadRound(block, 32);
+            ForwardQuadRound(block, 40);
 
-            for (uint i = 48; i <= 88; i += 8)  // 6 обратных раундов
-                ReverseQuadRound(block, i);
+            ReverseQuadRound(block, 48);
+            ReverseQuadRound(block, 56);
+            ReverseQuadRound(block, 64);
+            ReverseQuadRound(block, 72);
+            ReverseQuadRound(block, 80);
+            ReverseQuadRound(block, 88);
+
 
             for (uint i = 0; i < 4; i++)
                 outBlock[i] = block[i].BitSwap();                    
         }
 
-        void Decrypt(uint[] inBlock, uint[] outBlock)
+        public void Decrypt(uint[] inBlock, uint[] outBlock)
         {
             uint[] block = new uint[4];
 
             for (uint i = 0; i < 4; i++)
                 block[i] = inBlock[i].BitSwap();
 
-            for (uint i = 88; i >= 48; i -= 8) // 6 прямых раундов
-                ForwardQuadRound(block, i);
+            ForwardQuadRound(block, 88);
+            ForwardQuadRound(block, 80);
+            ForwardQuadRound(block, 72);
+            ForwardQuadRound(block, 64);
+            ForwardQuadRound(block, 56);
+            ForwardQuadRound(block, 48);
 
-            for (uint i = 40; i >= 0; i += 8) // 6 обратных раундов
-                ReverseQuadRound(block, i);
+            ReverseQuadRound(block, 40);
+            ReverseQuadRound(block, 32);
+            ReverseQuadRound(block, 24);
+            ReverseQuadRound(block, 16);
+            ReverseQuadRound(block, 8);
+            ReverseQuadRound(block, 0);
 
             for (uint i = 0; i < 4; i++)
                 outBlock[i] = block[i].BitSwap();             
