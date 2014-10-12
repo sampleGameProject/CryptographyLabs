@@ -19,7 +19,7 @@ namespace Cast256CBC
 
         public void AppendLine(string line)
         {
-            _box.Text += line;
+            _box.Text += (line + "\n");
         }
     }
 }

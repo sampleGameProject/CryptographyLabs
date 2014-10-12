@@ -34,7 +34,7 @@
             // mainTextBox
             // 
             this.mainTextBox.AcceptsTab = true;
-            this.mainTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mainTextBox.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.mainTextBox.Location = new System.Drawing.Point(12, 12);
             this.mainTextBox.Name = "mainTextBox";
             this.mainTextBox.ReadOnly = true;

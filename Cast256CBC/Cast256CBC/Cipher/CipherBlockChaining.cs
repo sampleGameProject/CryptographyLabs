@@ -37,7 +37,7 @@ namespace Cast256CBC.Cipher
                 FillBlockFromInput(currBlock, input, i);
                 ChainBlock(currBlock, prevBlock);
                 cast.Encrypt(currBlock, outBlock);
-                CopyBlock(prevBlock, currBlock);
+                CopyBlock(prevBlock, outBlock);
                 FillOutputFromBlock(outBlock, output, i);
             }
 
@@ -84,24 +84,25 @@ namespace Cast256CBC.Cipher
 
             uint[] currBlock = new uint[4];
             uint[] xorBlock = new uint[4];
-            uint[] prevBlock = new uint[4];
+            uint[] cryptBlock = new uint[4];
             
             uint[] outBlock = new uint[4];
             
             CopyBlock(xorBlock, iv);
-
-
+            
             for (int i = 0; i < blockSize / 4; i++)
             {
                 FillBlockFromInput(currBlock, input, i);
 
-                CopyBlock(prevBlock, currBlock);
+                CopyBlock(cryptBlock, currBlock);
                 
                 cast.Decrypt(currBlock, outBlock);
-                
-                ChainBlock(currBlock, xorBlock);
+
+                ChainBlock(outBlock, xorBlock);
 
                 FillOutputFromBlock(outBlock, output, i);
+
+                CopyBlock(xorBlock,cryptBlock);
             }
         }
     }

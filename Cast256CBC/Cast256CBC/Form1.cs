@@ -24,7 +24,8 @@ namespace Cast256CBC
         {
             var cout = new Cout(mainTextBox);
 
-            var text = "asdtreasftgrgdfgklgernmtsnjhstnh";
+            var text = "шифруй, воруй и убивай, колдуй и исчезай";
+            
             cout.AppendLine(text);
             var inputBlock = BlockConverter.StringToUintBlock(text);
 
@@ -36,6 +37,9 @@ namespace Cast256CBC
             uint[] iv = null;
 
             CipherBlockChaining.Chain(cast, inputBlock, ref encryptedBlock, ref iv);
+
+            var t1 = BlockConverter.UintBlockToString(encryptedBlock);
+            cout.AppendLine(t1);
 
             uint[] decryptedBlock = null;
 
