@@ -241,7 +241,7 @@ namespace Cast256CBC.Cipher
         };
     }
 
-    public class Cast
+    public class Cast : ICipher
     {
         public const int A = 3;
         public const int B = 2;

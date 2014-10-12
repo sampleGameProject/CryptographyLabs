@@ -8,7 +8,7 @@ namespace Cast256CBC.Cipher
 {
     public static class CipherBlockChaining
     {
-        public static void Chain(Cast cast, uint[] input, ref uint[] output, ref uint[] iv)
+        public static void Chain(ICipher cipher, uint[] input, ref uint[] output, ref uint[] iv)
         {
             iv = new uint[4];
 
@@ -35,12 +35,15 @@ namespace Cast256CBC.Cipher
             for(int i = 0; i < blockSize / 4; i++)
             {
                 FillBlockFromInput(currBlock, input, i);
+
                 ChainBlock(currBlock, prevBlock);
-                cast.Encrypt(currBlock, outBlock);
+
+                cipher.Encrypt(currBlock, outBlock);
+
                 CopyBlock(prevBlock, outBlock);
+
                 FillOutputFromBlock(outBlock, output, i);
             }
-
         }
 
         private static void ChainBlock(uint[] block1, uint[] block0)
@@ -76,7 +79,7 @@ namespace Cast256CBC.Cipher
             dest[3] = scr[3];
         }
 
-        public static void Unchain(Cast cast, uint[] input, uint[] iv,ref uint[] output)
+        public static void Unchain(ICipher cipher, uint[] input, uint[] iv, ref uint[] output)
         {
             int blockSize = input.GetLength(0);
             
@@ -96,7 +99,7 @@ namespace Cast256CBC.Cipher
 
                 CopyBlock(cryptBlock, currBlock);
                 
-                cast.Decrypt(currBlock, outBlock);
+                cipher.Decrypt(currBlock, outBlock);
 
                 ChainBlock(outBlock, xorBlock);
 
