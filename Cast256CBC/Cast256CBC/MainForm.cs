@@ -21,12 +21,13 @@ namespace Cast256CBC
         public MainForm()
         {
             InitializeComponent();
-            Test();
+            //Test();
         }
 
         void Test()
         {
-            var a = BlockConverter.StringToUintBlock("asddasddasddasdа");
+            
+            var a = BlockConverter.StringToUintBlock("testtestffff");
             var b = BlockConverter.UintBlockToString(a);
 
             var cout = new Cout(richTextBox1);
@@ -88,9 +89,9 @@ namespace Cast256CBC
 
             try
             {
-                var w1251 = Encoding.GetEncoding(1251);
+                var utf8 = Encoding.UTF8;
 
-                var text = File.ReadAllText(encodingData.TextPath, w1251);
+                var text = File.ReadAllText(encodingData.TextPath, utf8);
 
                 while (text.Length % 16 != 0)
                     text += " ";
@@ -99,7 +100,7 @@ namespace Cast256CBC
                 cout.AppendLine(text);
                 var inputBlock = BlockConverter.StringToUintBlock(text);
 
-                var keyStr = File.ReadAllText(encodingData.KeyPath, w1251);
+                var keyStr = File.ReadAllText(encodingData.KeyPath, utf8);
 
                 cout.AppendLine("Key: ");
                 cout.AppendLine(keyStr);
@@ -126,12 +127,15 @@ namespace Cast256CBC
 
                 var encPath     = String.Format("cast_encrypted_{0}.txt",   Path.GetFileNameWithoutExtension(encodingData.TextPath));
                 var encIVPath   = String.Format("cast_encrypted_{0}_iv.txt",Path.GetFileNameWithoutExtension(encodingData.TextPath));
-
-                File.WriteAllText(encPath, ecnryptedText, w1251);
-                File.WriteAllText(encIVPath, ivStr, w1251);
+                var keyPath     = String.Format("cast_encrypted_{0}_key.txt",Path.GetFileNameWithoutExtension(encodingData.TextPath));
+                
+                File.WriteAllText(encPath, ecnryptedText, utf8);
+                File.WriteAllText(encIVPath, ivStr, utf8);
+                File.WriteAllText(keyPath, keyStr, utf8);
 
                 cout.AppendLine(String.Format("Initialization vector saved at {0}", encIVPath));
                 cout.AppendLine(String.Format("Encrypted text saved at {0}", encPath));
+                cout.AppendLine(String.Format("Key saved at {0}", keyStr));
                 
             }
             catch (Exception ex)
@@ -193,20 +197,20 @@ namespace Cast256CBC
 
             try
             {
-                var w1251 = Encoding.GetEncoding(1251);
+                var utf8 = Encoding.UTF8;
 
-                var text = File.ReadAllText(decodingData.TextPath, w1251);
+                var text = File.ReadAllText(decodingData.TextPath, utf8);
 
                 cout.AppendLine("Encrypted text: ");
                 cout.AppendLine(text);
                 var inputBlock = BlockConverter.StringToUintBlock(text);
 
-                var keyStr = File.ReadAllText(decodingData.KeyPath, w1251);
+                var keyStr = File.ReadAllText(decodingData.KeyPath, utf8);
 
                 cout.AppendLine("Key: ");
                 cout.AppendLine(keyStr);
 
-                var ivStr = File.ReadAllText(decodingData.IVPath, w1251);
+                var ivStr = File.ReadAllText(decodingData.IVPath, utf8);
 
                 cout.AppendLine("Initialization vector:");
                 cout.AppendLine(ivStr);
@@ -229,7 +233,7 @@ namespace Cast256CBC
 
                 var decPath = String.Format("cast_decrypted_{0}.txt", Path.GetFileNameWithoutExtension(decodingData.TextPath));
                 
-                File.WriteAllText(decPath, decryptedText, w1251);
+                File.WriteAllText(decPath, decryptedText, utf8);
 
                 cout.AppendLine(String.Format("Decrypted text saved at {0}", decPath));
 
